@@ -1,0 +1,36 @@
+plugins {
+	id 'java'
+	id 'io.spring.dependency-management' version '1.1.6' apply false
+}
+
+allprojects  {
+	group = 'com.spring.study'
+	version = '0.0.1-SNAPSHOT'
+
+	repositories {
+		mavenCentral()
+	}
+
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(17)
+		}
+	}
+}
+
+subprojects  {
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+
+	dependencies {
+		compileOnly 'org.projectlombok:lombok:1.18.24'
+		annotationProcessor 'org.projectlombok:lombok:1.18.24'
+	}
+
+	// Gerenciamento de versões usando a configuração do Spring
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.boot:spring-boot-dependencies:3.3.4" // A versão do Spring Boot que você está usando
+		}
+	}
+}
